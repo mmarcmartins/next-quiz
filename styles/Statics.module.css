@@ -1,0 +1,22 @@
+.statics {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+}
+
+.valor {
+  display: flex;
+  height: 180px;
+  width: 180px;
+  font-size: 5rem;
+  justify-content: center;
+  align-items: center;
+  border-radius: 90px;
+  font-size: 4rem;
+}
+
+.text {
+  font-size: 2rem;
+}
