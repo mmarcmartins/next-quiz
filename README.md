@@ -1,2 +1,2 @@
 # next-quiz
-next-quiz changes necessarys
+next-quiz changes are necessary
