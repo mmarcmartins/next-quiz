@@ -1,8 +1,7 @@
-import QuestaoModel from "../model/questao";
-import styles from "../styles/Question.module.css";
-import Answer from "./Answer";
-import Timer from "./Timer";
-import Wording from "./Wording";
+import QuestaoModel from "../../model/Question";
+import Answer from "../Answer/Answer";
+import Timer from "../Timer/Timer";
+import Wording from "../Wording/Wording";
 
 const letras = [
   { valor: "A", cor: "#F2C866" },
@@ -39,13 +38,13 @@ export default function Question({
     ));
 
   return (
-    <div className={styles.question}>
+    <div>
       <Timer
         duration={responseTime ?? 10}
         onComplete={() => onCompleteTimer()}
         key={valor.id}
       />
-      <div className={styles.wording}>
+      <div>
         <Wording text={question.enunciado} />
       </div>
       {renderAnswers()}

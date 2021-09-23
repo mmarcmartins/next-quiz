@@ -1,5 +1,5 @@
-import QuestaoModel from "../../model/questao";
-import RespostaModel from "../../model/resposta";
+import QuestaoModel from "../../model/Question";
+import RespostaModel from "../../model/Answer";
 
 const questoes: QuestaoModel[] = [
   new QuestaoModel(306, "Qual bicho transmite a doença de chagas", [

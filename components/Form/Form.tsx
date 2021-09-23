@@ -1,7 +1,7 @@
-import QuestaoModel from "../model/questao";
-import styles from "../styles/Form.module.css";
-import Button from "./Button";
-import Question from "./Question";
+import QuestaoModel from "../../model/Question";
+import { FormStyled } from "./FormStyles";
+import Button from "../Button/Button";
+import Question from "../Question/Question";
 
 interface FormProps {
   question: QuestaoModel;
@@ -17,17 +17,17 @@ const Form = ({ question, last, responseQuestion, next }: FormProps) => {
     }
   };
   return (
-    <div className={styles.form}>
+    <FormStyled>
       {question && (
         <Question
           valor={question}
-          responseTime={3}
+          responseTime={100}
           onResponse={onResponse}
           onCompleteTimer={next}
         />
       )}
       <Button text={last ? "Finalizar" : "Próxima"} onClick={next} />
-    </div>
+    </FormStyled>
   );
 };
 

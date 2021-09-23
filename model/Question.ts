@@ -1,5 +1,5 @@
 import { sortRandom } from "../functions/arrays";
-import RespostaModel from "./resposta";
+import RespostaModel from "./Answer";
 
 export default class QuestaoModel {
   #id: number;

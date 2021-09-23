@@ -1,9 +1,9 @@
 import React from "react";
 import { useRouter } from "next/router";
-import styles from "../styles/Resultado.module.css";
-import Statics from "../components/Statics";
+import Statics from "../../components/Statics/Statics";
+import { ResultStyled, StaticsStyled, Title } from "./styles";
 
-const resultado = () => {
+const Resultado = () => {
   const router = useRouter();
 
   const totalQuestions = +router.query.totalQuestions;
@@ -11,9 +11,9 @@ const resultado = () => {
   const percentage = Math.round((correctAnswers / totalQuestions) * 100);
 
   return (
-    <div className={styles.resultado}>
-      <h1 className={styles.title}>Resultado</h1>
-      <div className={styles.statics}>
+    <ResultStyled>
+      <Title>Resultado</Title>
+      <StaticsStyled>
         <Statics text="Perguntas" value={totalQuestions} />
         <Statics
           backgroundColor="#BCE596"
@@ -25,9 +25,9 @@ const resultado = () => {
           text="Percentual"
           value={`${percentage}%`}
         />
-      </div>
-    </div>
+      </StaticsStyled>
+    </ResultStyled>
   );
 };
 
-export default resultado;
+export default Resultado;

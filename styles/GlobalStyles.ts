@@ -1,4 +1,6 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;600&display=swap");
+import { createGlobalStyle } from "styled-components";
+
+export const GlobalStyle = createGlobalStyle`
 html,
 body {
   padding: 0;
@@ -18,3 +20,4 @@ a {
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
 }
+`;

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import Form from "../components/Form";
-import QuestaoModel from "../model/questao";
+import Form from "../components/Form/Form";
+import QuestaoModel from "../model/Question";
 import { useRouter } from "next/router";
 
 const BASE_URL = "http://localhost:3000/api";

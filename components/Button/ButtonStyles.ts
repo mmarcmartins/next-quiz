@@ -1,4 +1,6 @@
-.button {
+import styled from "styled-components";
+
+export const ButtonStyled = styled.button`
   background-color: #9885f0;
   color: #fff;
   font-weight: 200;
@@ -9,8 +11,8 @@
   margin-top: 40px;
   border-radius: 5px;
   transition: transform 0.3s ease-in-out;
-}
-.button:hover {
-  transform: scale(1.1);
-  cursor: pointer;
-}
+  &:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+  }
+`;

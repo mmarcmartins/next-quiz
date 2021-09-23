@@ -1,5 +1,5 @@
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
-import styles from "../styles/Timer.module.css";
+import { Temporizer } from "./TimerStyles";
 
 interface TimerProps {
   duration: number;
@@ -8,7 +8,7 @@ interface TimerProps {
 
 const Timer = ({ duration, onComplete }: TimerProps) => {
   return (
-    <div className={styles.temporizador}>
+    <Temporizer>
       <CountdownCircleTimer
         size={100}
         isPlaying={true}
@@ -22,7 +22,7 @@ const Timer = ({ duration, onComplete }: TimerProps) => {
       >
         {({ remainingTime }) => remainingTime}
       </CountdownCircleTimer>
-    </div>
+    </Temporizer>
   );
 };
 

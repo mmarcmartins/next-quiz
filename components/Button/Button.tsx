@@ -1,5 +1,5 @@
-import styles from "../styles/Button.module.css";
 import Link from "next/link";
+import { ButtonStyled } from "./ButtonStyles";
 
 interface ButtonProps {
   href?: string;
@@ -9,9 +9,7 @@ interface ButtonProps {
 
 const Button = ({ href, text, onClick }: ButtonProps) => {
   const renderButton = () => (
-    <button className={styles.button} onClick={onClick}>
-      {text}
-    </button>
+    <ButtonStyled onClick={onClick}>{text}</ButtonStyled>
   );
   return href ? <Link href={href}>{renderButton()}</Link> : renderButton();
 };

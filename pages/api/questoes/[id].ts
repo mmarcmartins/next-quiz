@@ -1,4 +1,4 @@
-import questoes from "../bancoquestoes";
+import questoes from "../questionsDatabase";
 
 export default function handler(req, res) {
   const currentId = +req.query.id;
