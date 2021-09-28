@@ -1,4 +1,4 @@
-import { createGlobalStyle } from "styled-components";
+import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyle = createGlobalStyle`
 html,
@@ -19,5 +19,12 @@ a {
 * {
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
+  &:focus{
+    outline: none;
+  }
+}
+#__next{
+  display: flex;
+  height: 100vh;
 }
 `;
