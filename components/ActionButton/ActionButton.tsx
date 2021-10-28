@@ -9,20 +9,21 @@ interface ActionButtonInterface {
   onClick?: () => void;
 }
 
+const renderButton = (text: string) => {
+  return (
+    <ButtonWrapper>
+      <div className="btn-content">
+        <span>{text}</span>
+        <ActionArrow />
+      </div>
+    </ButtonWrapper>
+  );
+};
+
 const ActionButton = ({ text, url }: ActionButtonInterface) => {
-  const renderButton = () => {
-    return (
-      <ButtonWrapper>
-        <div className="btn-content">
-          <span>{text}</span>
-          <ActionArrow />
-        </div>
-      </ButtonWrapper>
-    );
-  };
   return (
     <Link href={url} passHref>
-      {renderButton()}
+      {renderButton(text)}
     </Link>
   );
 };
