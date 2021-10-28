@@ -27,4 +27,9 @@ a {
   display: flex;
   height: 100vh;
 }
+ul{
+  margin:0;
+  list-style:none;
+  padding:0;
+}
 `;
