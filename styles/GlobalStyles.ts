@@ -19,6 +19,7 @@ a {
 * {
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
+  font-weight: 200;
   &:focus{
     outline: none;
   }
