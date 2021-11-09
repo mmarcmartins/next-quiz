@@ -7,10 +7,10 @@ import {
   QuestionForm,
   AddQuestionPlaceholder,
 } from './index.style';
-import { v4 as uuidv4 } from 'uuid';
 
 import { BsPlusLg } from 'react-icons/bs';
 import QuestionsInput from '../../components/QuestionInput/QuestionsInput';
+import { nanoid } from 'nanoid';
 
 const users = [
   {
@@ -44,9 +44,8 @@ export interface Question {
   question: string;
   answers: Array<Answers>;
 }
-
-const emptyQuestion: Question = {
-  id: uuidv4(),
+const createNewRegister = (): Question => ({
+  id: nanoid(),
   question: '',
   answers: [
     {
@@ -66,18 +65,25 @@ const emptyQuestion: Question = {
       correct: false,
     },
   ],
-};
+});
 
 const index = () => {
-  const [questions, setQuestions] = useState<Array<Question>>([emptyQuestion]);
-  const [questionsValid, setQuestionsValid] = useState(true);
+  const [questions, setQuestions] = useState<Array<Question>>([
+    createNewRegister(),
+  ]);
+
+  const [questionsValid, setQuestionsValid] = useState(false);
+
+  const removeQuestion = (questionId: string) => {
+    if (questions.length === 1) return;
+    setQuestions(questions.filter(({ id }) => questionId !== id));
+  };
 
   const addEmptyQuestion = (event: React.MouseEvent<HTMLFormElement>) => {
-    console.log(questionsValid);
-    if (!questionsValid) return;
     event.preventDefault();
+    if (!questionsValid) return;
     setQuestionsValid(false);
-    setQuestions([...questions, emptyQuestion]);
+    setQuestions([...questions, createNewRegister()]);
   };
 
   return (
@@ -105,21 +111,19 @@ const index = () => {
           {questions.map((question, currentIndex) => (
             <QuestionsInput
               currentQuestion={question}
-              key={`${currentIndex}`}
+              key={`${question.id}`}
               currentQuestionIndex={currentIndex}
               setQuestionsValid={setQuestionsValid}
+              removeQuestion={removeQuestion}
             />
           ))}
-          <AddQuestionPlaceholder
-            onClick={addEmptyQuestion}
-            disabled={!questionsValid}
-          >
-            <div className="icon-placeholder">
-              <BsPlusLg />
-            </div>
-            <span>Adicionar questão</span>
-          </AddQuestionPlaceholder>
         </QuestionForm>
+        <AddQuestionPlaceholder onClick={addEmptyQuestion} disabled={false}>
+          <div className="icon-placeholder">
+            <BsPlusLg />
+          </div>
+          <span>Adicionar questão</span>
+        </AddQuestionPlaceholder>
       </QuestionDiv>
     </Container>
   );

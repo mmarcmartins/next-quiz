@@ -19,8 +19,11 @@ export const QuestionInput = styled.div`
 
 export const CreateQuestion = styled.div`
   width: 100%;
-  overflow: hidden;
   margin-bottom: 20px;
+  position: relative;
+  &:last-of-type {
+    margin-bottom: 0;
+  }
   .question-input {
     flex-grow: 1;
     font-size: 1.4em;
@@ -74,5 +77,8 @@ export const RemoveQuestion = styled.button`
   span {
     color: #fff;
     font-size: 1.2em;
+  }
+  &:hover {
+    cursor: pointer;
   }
 `;

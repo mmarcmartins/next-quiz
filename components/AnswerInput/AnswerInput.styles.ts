@@ -3,14 +3,12 @@ import styled from 'styled-components';
 export const Answers = styled.div`
   background-color: #fff;
   width: 100%;
-  margin-top: ${({ isActive }) => (isActive ? '-15px' : '-368px')};
-  padding: 15px 20px 0 20px;
+  height: ${({ isAccordionActive }) => (isAccordionActive ? '0' : '368px')};
+  padding: 0 20px 0 20px;
   position: relative;
   z-index: 2;
-  transition: margin 0.5s ease-in-out;
-  &.active {
-    margin-top: -15px;
-  }
+  overflow: hidden;
+  transition: height 0.5s ease-in-out;
 `;
 
 export const Answer = styled.div`
@@ -29,7 +27,7 @@ export const AnswerOption = styled.button`
   border-radius: 50%;
   margin-right: 20px;
   position: relative;
-  border: none;
+  border: 2px solid #fff;
   span {
     color: #fff;
     font-weight: 800;
@@ -42,20 +40,29 @@ export const AnswerOption = styled.button`
     position: absolute;
     top: 0;
     right: 0;
-    padding-top: 15px;
-    width: 50px;
-    height: 48px;
+    padding-top: 10px;
+
+    width: 100%;
+    height: 100%;
+    border: 1px solid ${({ backgroundColor }) => backgroundColor};
     background-color: ${({ backgroundColor }) => backgroundColor};
     border-radius: 50%;
     opacity: ${({ isSelectedAnswer }) => (isSelectedAnswer ? 1 : 0)};
     transition: opacity 0.2s ease-in-out;
   }
-  &:hover,
-  &:focus {
+  &:hover {
     cursor: pointer;
     .checkMark {
       opacity: 1;
     }
+  }
+  &:focus {
+    border-color: ${({ theme }) => theme.colors.darkBackground};
+  }
+  svg {
+    width: 50px;
+    height: 25px;
+    padding-right: 5px;
   }
 `;
 

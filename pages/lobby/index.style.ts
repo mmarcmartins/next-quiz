@@ -34,7 +34,7 @@ export const Container = styled.div`
 export const QuestionDiv = styled.div`
   display: block;
   position: relative;
-  margin-left: 100px;
+  margin: 0 auto;
   width: 1000px;
   .current-user {
     width: 330px;
@@ -66,14 +66,30 @@ export const QuestionForm = styled.form`
   width: 100%;
   margin: 0 auto;
   display: flex;
+  max-height: 700px;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
   position: relative;
   margin-top: 10px;
-  max-width: 100%;
-  text-align: center;
-  overflow: hidden;
+  overflow-y: scroll;
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: ${({ theme }) => theme.colors.primary};
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 25px;
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: ${({ theme }) => theme.colors.darkBackground};
+  }
 `;
 
 export const AddQuestionPlaceholder = styled.button`
@@ -86,6 +102,7 @@ export const AddQuestionPlaceholder = styled.button`
   align-items: center;
   width: 330px;
   overflow: hidden;
+  margin: 0 auto;
   margin-top: 20px;
   .icon-placeholder {
     z-index: 2;

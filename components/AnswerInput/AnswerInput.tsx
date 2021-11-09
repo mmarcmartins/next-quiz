@@ -12,9 +12,10 @@ const letters = [
 ];
 
 interface IAnswerInput {
-  isActive: boolean;
+  isAccordionActive: boolean;
   currentAnswers: IAnswers[];
-  currentQuestionIndex: number;
+  questionId: string;
+  currentQuestionIndex: string;
   handleAnswerChange: (index: number, value: string) => void;
   setCorrectAnswer: (
     event: React.MouseEvent<HTMLFormElement>,
@@ -23,16 +24,17 @@ interface IAnswerInput {
 }
 
 const AnswerInput = ({
-  isActive,
+  isAccordionActive,
   currentAnswers,
   currentQuestionIndex,
   handleAnswerChange,
   setCorrectAnswer,
+  questionId,
 }: IAnswerInput) => {
   return (
-    <Answers isActive={isActive}>
+    <Answers isAccordionActive={isAccordionActive}>
       {currentAnswers.map((answer, index) => (
-        <Answer key={`${currentQuestionIndex}-${index}`}>
+        <Answer key={`${questionId}-${index}`}>
           <AnswerOption
             onClick={(event: React.MouseEvent<HTMLFormElement>) =>
               setCorrectAnswer(event, index)

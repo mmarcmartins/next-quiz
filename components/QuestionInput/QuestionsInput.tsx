@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Question } from '../../pages/lobby';
 
 import {
@@ -15,44 +15,72 @@ import AnswerInput from '../AnswerInput/AnswerInput';
 interface Questioninput {
   currentQuestionIndex: number;
   setQuestionsValid: (canAddOtherQuestion: boolean) => void;
-  currentQuestion: Omit<Question, 'id'>;
+  currentQuestion: Question;
+  removeQuestion: (questionId: string) => void;
 }
 
 const QuestionsInput = ({
   currentQuestionIndex,
   currentQuestion,
   setQuestionsValid,
+  removeQuestion,
 }: Questioninput) => {
-  const [current, setCurrent] = useState(currentQuestion.question);
+  const [currentWord, setCurrentWord] = useState(currentQuestion.question);
   const [currentAnswers, setCurrentAnswers] = useState(currentQuestion.answers);
-  const [isActive, setisActive] = useState(false);
+  const [isInputValid, setIsInputValid] = useState(false);
+  const [isAccordionActive, setisAccordionActive] = useState(false);
+
   const handleChangeQuestion = (value: string) => {
-    setCurrent(value);
+    setCurrentWord(value);
   };
+
+  const haveEmptyFields = () =>
+    currentWord.trim() === '' ||
+    currentAnswers.some((answer) => answer.word.trim() === '');
 
   const setCorrectAnswer = (
     event: React.MouseEvent<HTMLFormElement>,
     index: number,
   ) => {
     event.preventDefault();
-    const oldAnswers = currentAnswers;
-    oldAnswers[index].correct = true;
+    const hasEmptyFields = haveEmptyFields();
+
+    if (hasEmptyFields) return;
+
     const changeList = currentAnswers.map((answer, currentIndex) => ({
       ...answer,
       correct: currentIndex === index,
     }));
+    setIsInputValid(!hasEmptyFields);
     setCurrentAnswers(changeList);
   };
 
+  useEffect(() => {
+    if (!isInputValid) {
+      setCurrentAnswers(
+        currentAnswers.map((answer) => ({ ...answer, correct: false })),
+      );
+    }
+    setQuestionsValid(isInputValid);
+  }, [isInputValid]);
+
   const handleAnswerChange = (index: number, value: string) => {
-    const oldAnswers = currentAnswers;
+    const oldAnswers = [...currentAnswers];
     oldAnswers[index].word = value;
+    if (value.trim() === '') {
+      setIsInputValid(false);
+    }
     setCurrentAnswers([...oldAnswers]);
   };
 
   const handleAccordion = (event: React.MouseEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setisActive(!isActive);
+    setisAccordionActive(!isAccordionActive);
+  };
+
+  const handleRemoveQuestion = (event: React.MouseEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    removeQuestion(currentQuestion.id);
   };
 
   return (
@@ -65,22 +93,26 @@ const QuestionsInput = ({
           onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
             handleChangeQuestion(event.target.value)
           }
-          value={current}
+          value={currentWord}
         />
       </QuestionInput>
       <AnswerInput
-        isActive={isActive}
+        questionId={currentQuestion.id}
+        isAccordionActive={isAccordionActive}
         currentAnswers={currentAnswers}
-        currentQuestionIndex={currentQuestionIndex}
+        currentQuestionIndex={currentQuestion.id}
         handleAnswerChange={handleAnswerChange}
         setCorrectAnswer={setCorrectAnswer}
       />
       <QuestionController>
-        <AccordionButton isActive={isActive} onClick={handleAccordion}>
+        <AccordionButton
+          isAccordionActive={isAccordionActive}
+          onClick={handleAccordion}
+        >
           <MdOutlineKeyboardArrowDown color="#000" />
-          <span>{`${isActive ? 'Esconder' : 'Ver'} respostas`}</span>
+          <span>{`${isAccordionActive ? 'Esconder' : 'Ver'} respostas`}</span>
         </AccordionButton>
-        <RemoveQuestion>
+        <RemoveQuestion onClick={handleRemoveQuestion}>
           <span>Excluir questão</span>
         </RemoveQuestion>
       </QuestionController>
