@@ -11,6 +11,7 @@ import {
 import { BsPlusLg } from 'react-icons/bs';
 import QuestionsInput from '../../components/QuestionInput/QuestionsInput';
 import { nanoid } from 'nanoid';
+import PlayButton from '../../components/PlayButton/PlayButton';
 
 const users = [
   {
@@ -33,6 +34,36 @@ const users = [
     username: 'Levi',
     imagePath: 'img/test.svg',
   },
+  {
+    id: 5,
+    username: 'Levi',
+    imagePath: 'img/test.svg',
+  },
+  {
+    id: 6,
+    username: 'Levi',
+    imagePath: 'img/test.svg',
+  },
+  {
+    id: 7,
+    username: 'Levi',
+    imagePath: 'img/test.svg',
+  },
+  {
+    id: 8,
+    username: 'Levi',
+    imagePath: 'img/test.svg',
+  },
+  {
+    id: 9,
+    username: 'Levi',
+    imagePath: 'img/test.svg',
+  },
+  {
+    id: 10,
+    username: 'Levi',
+    imagePath: 'img/test.svg',
+  },
 ];
 
 export interface Answers {
@@ -43,6 +74,7 @@ export interface Question {
   id: string;
   question: string;
   answers: Array<Answers>;
+  isValid: boolean;
 }
 const createNewRegister = (): Question => ({
   id: nanoid(),
@@ -65,6 +97,7 @@ const createNewRegister = (): Question => ({
       correct: false,
     },
   ],
+  isValid: false,
 });
 
 const index = () => {
@@ -72,17 +105,26 @@ const index = () => {
     createNewRegister(),
   ]);
 
-  const [questionsValid, setQuestionsValid] = useState(false);
+  const isSomeQuestionsInvalid = () =>
+    questions.some((question) => !question.isValid);
 
   const removeQuestion = (questionId: string) => {
     if (questions.length === 1) return;
     setQuestions(questions.filter(({ id }) => questionId !== id));
   };
 
+  const setQuestionStatus = (isValid: boolean, currentIdQuestion: string) => {
+    const newQuestions = questions.map((question) =>
+      question.id === currentIdQuestion
+        ? { ...question, isValid }
+        : { ...question },
+    );
+    setQuestions(newQuestions);
+  };
+
   const addEmptyQuestion = (event: React.MouseEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (!questionsValid) return;
-    setQuestionsValid(false);
+    if (isSomeQuestionsInvalid()) return;
     setQuestions([...questions, createNewRegister()]);
   };
 
@@ -100,6 +142,7 @@ const index = () => {
             </li>
           ))}
         </ul>
+        <PlayButton onClick={() => console.log('click')} text="JOGAR" />
       </UserList>
 
       <QuestionDiv>
@@ -113,7 +156,7 @@ const index = () => {
               currentQuestion={question}
               key={`${question.id}`}
               currentQuestionIndex={currentIndex}
-              setQuestionsValid={setQuestionsValid}
+              setQuestionsValid={setQuestionStatus}
               removeQuestion={removeQuestion}
             />
           ))}

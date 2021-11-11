@@ -53,11 +53,16 @@ export const AccordionButton = styled.button`
   svg {
     width: 20px;
     height: 20px;
-    transform: ${({ isActive }) => (isActive ? 'rotate(180deg)' : 'rotate(0)')};
+    transform: ${({ isAccordionActive }) =>
+      !isAccordionActive ? 'rotate(180deg)' : 'rotate(0)'};
     transition: transform 0.5s ease-in-out;
   }
-  &:hover {
+  &:hover,
+  &:focus {
     cursor: pointer;
+    span {
+      font-weight: 800;
+    }
   }
 `;
 
@@ -78,7 +83,11 @@ export const RemoveQuestion = styled.button`
     color: #fff;
     font-size: 1.2em;
   }
-  &:hover {
+  &:hover,
+  &:focus {
     cursor: pointer;
+    span {
+      font-weight: 800;
+    }
   }
 `;

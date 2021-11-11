@@ -15,7 +15,6 @@ interface IAnswerInput {
   isAccordionActive: boolean;
   currentAnswers: IAnswers[];
   questionId: string;
-  currentQuestionIndex: string;
   handleAnswerChange: (index: number, value: string) => void;
   setCorrectAnswer: (
     event: React.MouseEvent<HTMLFormElement>,
@@ -26,7 +25,6 @@ interface IAnswerInput {
 const AnswerInput = ({
   isAccordionActive,
   currentAnswers,
-  currentQuestionIndex,
   handleAnswerChange,
   setCorrectAnswer,
   questionId,

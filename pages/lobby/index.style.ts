@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 
 export const UserList = styled.div`
-  display: block;
+  display: flex;
+  flex-direction: column;
   position: relative;
   background-color: ${({ theme }) => theme.colors.darkBackground};
   height: 100vh;
@@ -20,6 +21,28 @@ export const UserList = styled.div`
     }
     & > span {
       margin-right: 10px;
+    }
+  }
+  ul {
+    overflow-y: scroll;
+    ::-webkit-scrollbar {
+      width: 5px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+      background: ${({ theme }) => theme.colors.darkBackground};
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+      background: #888;
+      border-radius: 25px;
+    }
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+      background: ${({ theme }) => theme.colors.darkBackground};
     }
   }
 `;

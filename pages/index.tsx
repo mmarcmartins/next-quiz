@@ -22,7 +22,7 @@ const Index = () => {
             onChange={changeName}
           />
         </UserInfo>
-        <ActionButton text="JOGAR" url="/lobby" />
+        <ActionButton text="INICIAR SALA" url="/lobby" />
       </div>
     </Container>
   );

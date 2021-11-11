@@ -14,7 +14,7 @@ import AnswerInput from '../AnswerInput/AnswerInput';
 
 interface Questioninput {
   currentQuestionIndex: number;
-  setQuestionsValid: (canAddOtherQuestion: boolean) => void;
+  setQuestionsValid: (canAddOtherQuestion: boolean, questionId: string) => void;
   currentQuestion: Question;
   removeQuestion: (questionId: string) => void;
 }
@@ -61,7 +61,7 @@ const QuestionsInput = ({
         currentAnswers.map((answer) => ({ ...answer, correct: false })),
       );
     }
-    setQuestionsValid(isInputValid);
+    setQuestionsValid(isInputValid, currentQuestion.id);
   }, [isInputValid]);
 
   const handleAnswerChange = (index: number, value: string) => {
@@ -110,7 +110,7 @@ const QuestionsInput = ({
           onClick={handleAccordion}
         >
           <MdOutlineKeyboardArrowDown color="#000" />
-          <span>{`${isAccordionActive ? 'Esconder' : 'Ver'} respostas`}</span>
+          <span>{`${!isAccordionActive ? 'Esconder' : 'Ver'} respostas`}</span>
         </AccordionButton>
         <RemoveQuestion onClick={handleRemoveQuestion}>
           <span>Excluir questão</span>
