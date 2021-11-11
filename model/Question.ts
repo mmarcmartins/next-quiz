@@ -1,5 +1,5 @@
-import { sortRandom } from "../functions/arrays";
-import RespostaModel from "./Answer";
+import { sortRandom } from '../functions/arrays';
+import RespostaModel from './Answer';
 
 export default class QuestaoModel {
   #id: number;
@@ -11,7 +11,7 @@ export default class QuestaoModel {
     id: number,
     enunciado: string,
     respostas: RespostaModel[],
-    acertou = false
+    acertou = false,
   ) {
     this.#id = id;
     this.#enunciado = enunciado;
@@ -54,20 +54,19 @@ export default class QuestaoModel {
 
   sortAnswers(): QuestaoModel {
     const sorted = sortRandom(this.#respostas);
-    console.log("sorted:", sorted);
     return new QuestaoModel(this.#id, this.#enunciado, sorted, this.#acertou);
   }
 
   static toModel(objQuestion: QuestaoModel): QuestaoModel {
     const answersModel = objQuestion.respostas.map((resp) =>
-      RespostaModel.toModel(resp)
+      RespostaModel.toModel(resp),
     );
 
     return new QuestaoModel(
       objQuestion.id,
       objQuestion.enunciado,
       answersModel,
-      objQuestion.acertou
+      objQuestion.acertou,
     );
   }
 
