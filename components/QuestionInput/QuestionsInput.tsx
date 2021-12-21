@@ -100,7 +100,6 @@ const QuestionsInput = ({
         questionId={currentQuestion.id}
         isAccordionActive={isAccordionActive}
         currentAnswers={currentAnswers}
-        currentQuestionIndex={currentQuestion.id}
         handleAnswerChange={handleAnswerChange}
         setCorrectAnswer={setCorrectAnswer}
       />

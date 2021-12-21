@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import UserCard from '../../components/UserCard/UserCard';
 import {
   Container,
@@ -12,58 +12,19 @@ import { BsPlusLg } from 'react-icons/bs';
 import QuestionsInput from '../../components/QuestionInput/QuestionsInput';
 import { nanoid } from 'nanoid';
 import PlayButton from '../../components/PlayButton/PlayButton';
+import UserContext from '../../contexts/users';
 
-const users = [
+const fixUsers = [
   {
-    id: 1,
+    socketId: 1,
     username: 'Marcelo',
     imagePath: 'img/test.svg',
   },
   {
-    id: 2,
+    socketId: 2,
     username: 'Anderson',
     imagePath: 'img/test.svg',
-  },
-  {
-    id: 3,
-    username: 'Koichi',
-    imagePath: 'img/test.svg',
-  },
-  {
-    id: 4,
-    username: 'Levi',
-    imagePath: 'img/test.svg',
-  },
-  {
-    id: 5,
-    username: 'Levi',
-    imagePath: 'img/test.svg',
-  },
-  {
-    id: 6,
-    username: 'Levi',
-    imagePath: 'img/test.svg',
-  },
-  {
-    id: 7,
-    username: 'Levi',
-    imagePath: 'img/test.svg',
-  },
-  {
-    id: 8,
-    username: 'Levi',
-    imagePath: 'img/test.svg',
-  },
-  {
-    id: 9,
-    username: 'Levi',
-    imagePath: 'img/test.svg',
-  },
-  {
-    id: 10,
-    username: 'Levi',
-    imagePath: 'img/test.svg',
-  },
+  }
 ];
 
 export interface Answers {
@@ -76,6 +37,7 @@ export interface Question {
   answers: Array<Answers>;
   isValid: boolean;
 }
+
 const createNewRegister = (): Question => ({
   id: nanoid(),
   question: '',
@@ -128,6 +90,8 @@ const index = () => {
     setQuestions([...questions, createNewRegister()]);
   };
 
+  const { users }  = useContext(UserContext)
+
   return (
     <Container>
       <UserList>
@@ -137,7 +101,7 @@ const index = () => {
         </div>
         <ul>
           {users.map((user) => (
-            <li key={user.id}>
+            <li key={user.socketId}>
               <UserCard name={user.username} imagePath={user.imagePath} />
             </li>
           ))}

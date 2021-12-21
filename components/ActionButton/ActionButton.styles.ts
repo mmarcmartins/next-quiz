@@ -38,10 +38,11 @@ const btnContent = {
     `,
 };
 
-export const ButtonWrapper = styled.a`
+export const ButtonWrapper = styled.button`
   display: flex;
   justify-content: center;
-
+  background:none;
+  border:none;
   .btn-content {
     ${btnContent.style}
     background-color: ${({ theme }) => theme.colors.darkPrimary};
