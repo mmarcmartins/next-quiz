@@ -6,7 +6,7 @@ import { createOrGetRoom } from '../functions/socketHelpers';
 
 const Index = () => {
   const [name, setName] = useState('');
-  const { socket } = useContext(SocketContext);
+  const socket = useContext(SocketContext);
   
   const changeName = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setName(event.target.value);
