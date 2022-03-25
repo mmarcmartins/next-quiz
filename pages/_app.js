@@ -1,23 +1,28 @@
 import { ThemeProvider } from "styled-components";
 import { GlobalStyle } from "../styles/GlobalStyles";
 import { Theme } from "../styles/Theme";
-import SocketContext from '../contexts/socket';
-import UsersContext from '../contexts/users';
+import { Provider as SocketProvider } from '../contexts/socket';
+import {Provider as UsersProvider } from '../contexts/users';
 import { useState, useMemo, useEffect } from 'react';
 import { useSocket } from '../hooks/useSocket';
+import { SOCKET_URL } from '../functions/socketHelpers';
 
 export default function App({ Component, pageProps }) {
   const [users, setUsers] = useState([]);
-  const socketConnection = useSocket('http://127.0.0.1:4001')
+  const [currentUser, setCurrentUser] = useState();
+  const socketConnection = useSocket(SOCKET_URL);
   
   const defaultContextValue = useMemo(() => ({
     users,
-    setUsers
-  }), [users]);  
+    setUsers,
+    currentUser,
+    setCurrentUser
+  }), [users, currentUser]);  
   
   useEffect(() => {
     if(socketConnection){
       socketConnection.on("updateUIUsers", ({ newUsers }) => {
+        console.log(newUsers)
         setUsers(newUsers);      
       });
     }
@@ -27,11 +32,11 @@ export default function App({ Component, pageProps }) {
     <>
       <GlobalStyle />
       <ThemeProvider theme={Theme}>
-        <UsersContext.Provider value={defaultContextValue}>
-         <SocketContext.Provider value={socketConnection}>
+        <UsersProvider value={defaultContextValue}>
+         <SocketProvider value={socketConnection}>
             <Component {...pageProps} />
-          </SocketContext.Provider>
-        </UsersContext.Provider>
+          </SocketProvider>
+        </UsersProvider>
       </ThemeProvider>
     </>
   );

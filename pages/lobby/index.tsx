@@ -90,7 +90,7 @@ const index = () => {
     setQuestions([...questions, createNewRegister()]);
   };
 
-  const { users }  = useContext(UserContext)
+  const { users, currentUser }  = useContext(UserContext)
 
   return (
     <Container>
@@ -102,7 +102,7 @@ const index = () => {
         <ul>
           {users.map((user) => (
             <li key={user.socketId}>
-              <UserCard name={user.username} imagePath={user.imagePath} />
+              <UserCard name={user.name} imagePath={user.imagePath} />
             </li>
           ))}
         </ul>
@@ -111,8 +111,8 @@ const index = () => {
 
       <QuestionDiv>
         <div className="current-user">
-          <img className="user-image" src="img/test.svg" />
-          <span>Marcelo</span>
+          <img className="user-image" src={currentUser.imagePath} />
+          <span>{currentUser.name}</span>
         </div>
         <QuestionForm>
           {questions.map((question, currentIndex) => (

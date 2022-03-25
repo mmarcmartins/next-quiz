@@ -2,23 +2,28 @@ import React, { useState, useContext } from 'react';
 import ActionButton from '../components/ActionButton/ActionButton';
 import { Container, ImageHolder, Image, InputName, UserInfo } from './styles';
 import SocketContext from '../contexts/socket';
+import UserContext from '../contexts/users';
+
 import { createOrGetRoom } from '../functions/socketHelpers';
+import { useRouter } from 'next/router';
 
 const Index = () => {
   const [name, setName] = useState('');
+  const router = useRouter();
   const socket = useContext(SocketContext);
+  const currentUser = useContext(UserContext);
   
   const changeName = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setName(event.target.value);
   };
 
-  const connectPlayer = () => {
-    socket.emit('joinRoom', {
-      name,
-      socketId: socket.id,
-      currentRoom: createOrGetRoom(),
-      imagePath: 'img/test.svg'
-    })
+  const connectPlayer = async () => {
+    const currentRoom = createOrGetRoom();
+    const newUser = { name, currentRoom , imagePath: 'img/test.svg' }
+    socket.auth = { ...newUser };
+    await socket.connect();
+    currentUser.setCurrentUser({socketId: socket.id,...newUser})
+    router.push(`/lobby?r=${currentRoom}`);
   }
 
   return (

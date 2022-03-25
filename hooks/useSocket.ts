@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react'
 import io from 'socket.io-client'
 
-const useSocket = (url) => {
+export const useSocket = (url) => {
   const [socket, setSocket] = useState(null)
   
   useEffect(() => {
-    const socketIo = io(url)
+    const socketIo = io(url, { autoConnect: false });
 
     setSocket(socketIo)
 
@@ -18,5 +18,3 @@ const useSocket = (url) => {
 
   return socket
 }
-
-export { useSocket };
